@@ -13,6 +13,6 @@ locals {
 
 data "packet_spot_market_price" "amsterdam" {
   facility = "ams1"
-  plan     = "t1.small.x86"
+  plan     = "baremetal_0"
 }
 
