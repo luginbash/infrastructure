@@ -8,7 +8,7 @@ provider "vultr" {
 
 data "vultr_plan" "hf12" {
   filter {
-      name = "High Frequency 12 Dollar"
+      name = "name"
       values = ["1024 MB RAM,32G NVME"]
   }
 }
