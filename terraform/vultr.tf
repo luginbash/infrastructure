@@ -16,6 +16,7 @@ resource "vultr_server" "amstnlvl01" {
   os_id = "270" # ubuntu1804
   region_id = "7" # Amsterdam
   enable_ipv6 = true
+  price_per_month = "12"
 }
 
 
@@ -24,6 +25,7 @@ resource "vultr_server" "tokyjpvl01" {
   os_id = "270" # ubuntu1804
   region_id = "7" # Amsterdam
   enable_ipv6 = true
+  price_per_month = "12"
 }
 
 
