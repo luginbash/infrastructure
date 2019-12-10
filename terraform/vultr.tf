@@ -8,30 +8,28 @@ provider "vultr" {
 
 data "vultr_plan" "hf12" {
   filter {
-      name = "name"
-      values = ["1024 MB RAM,32G NVME"]
+      name = "disk"
+      values = ["64"]
   }
 }
 
 
 resource "vultr_firewall_group" "internal" {}
-resource "vultr_firewall_group" "edge" {}
+resource "vultr_firewall_group" "untrust" {}
 resource "vultr_firewall_group" "default" {}
 
 
 resource "vultr_server" "amstnlvl01" {
-  plan_id = data.vultr_plan.hf12.name
+  plan_id = "199"
   os_id = "270" # ubuntu1804
   region_id = "7" # Amsterdam
-  enable_ipv6 = true
 }
 
 
 resource "vultr_server" "tokyjpvl01" {
-  plan_id = data.vultr_plan.hf12.name
+  plan_id = "401"
   os_id = "270" # ubuntu1804
-  region_id = "7" # Amsterdam
-  enable_ipv6 = true
+  region_id = "25" # Tokyo
 }
 
 
