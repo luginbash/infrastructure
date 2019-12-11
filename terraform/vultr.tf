@@ -14,8 +14,12 @@ data "vultr_plan" "hf12" {
 }
 
 
-resource "vultr_firewall_group" "untrust" {}
-resource "vultr_firewall_group" "default" {}
+resource "vultr_firewall_group" "untrust" {
+  description = "untrust"
+}
+resource "vultr_firewall_group" "default" {
+  description = "default"
+}
 
 
 resource "vultr_server" "amstnlvl01" {
