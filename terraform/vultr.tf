@@ -27,7 +27,7 @@ resource "vultr_server" "amstnlvl01" {
 
 resource "vultr_server" "tokyjpvl01" {
   plan_id = "401"
-  os_id = "270" # ubuntu1804
+  os_id = "252" # ubuntu1710
   region_id = "25" # Tokyo
 }
 
