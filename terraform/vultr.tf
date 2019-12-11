@@ -14,7 +14,6 @@ data "vultr_plan" "hf12" {
 }
 
 
-resource "vultr_firewall_group" "internal" {}
 resource "vultr_firewall_group" "untrust" {}
 resource "vultr_firewall_group" "default" {}
 
