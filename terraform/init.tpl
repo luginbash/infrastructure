@@ -16,7 +16,7 @@ packages:
 salt_minion:
   conf:
     master: ${master_addr}
-		master_finger: ${master_finger}
+		master_finger: "${master_finger}"
 
 network:
   version: 2
