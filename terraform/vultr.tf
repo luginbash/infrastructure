@@ -22,12 +22,6 @@ resource "vultr_firewall_group" "default" {
 }
 
 
-resource "vultr_server" "amstnlvl01" {
-  plan_id = "199"
-  os_id = "270" # ubuntu1804
-  region_id = "7" # Amsterdam
-}
-
 
 resource "vultr_server" "tokyjpvl01" {
   plan_id = "401"
