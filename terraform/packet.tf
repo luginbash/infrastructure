@@ -22,8 +22,8 @@ data "template_file" "init" {
   }
 }
 
-resource "packet_device" "amstntpks01"{
-  hostname = "amstntpks01.lug.sh"
+resource "packet_device" "amstnlpks01" {
+  hostname = "amstnlpks01.lug.sh"
   plan = "baremetal_0"
   facilities = ["ams1"]
   operating_system = "ubuntu_18_04"
