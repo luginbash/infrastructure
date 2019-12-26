@@ -1,6 +1,5 @@
 variable "PACKET_AUTH_TOKEN" {}
 variable "PACKET_PROJECT" {}
-variable "PACKET_MY_PREFIX" {}
 variable "SALT_MASTER" {}
 variable "SALT_FINGER" {}
 
@@ -16,7 +15,6 @@ locals {
 data "template_file" "init" {
   template = file("${path.module}/init.tpl")
   vars = {
-    my_prefix = var.PACKET_MY_PREFIX
     master_addr = var.SALT_MASTER
     master_finger = var.SALT_FINGER
   }
