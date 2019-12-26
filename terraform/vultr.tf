@@ -13,15 +13,6 @@ data "vultr_plan" "hf12" {
   }
 }
 
-data "vultr_plan" "hf6" {
-  filter {
-      name = "name"
-      values = ["1024 MB RAM"]
-  }
-}
-
-
-
 resource "vultr_firewall_group" "untrust" {
   description = "untrust"
 }
