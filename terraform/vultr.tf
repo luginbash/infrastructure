@@ -13,6 +13,14 @@ data "vultr_plan" "hf12" {
   }
 }
 
+data "vultr_plan" "hf6" {
+  filter {
+      name = "name"
+      values = ["1024 MB RAM"]
+  }
+}
+
+
 
 resource "vultr_firewall_group" "untrust" {
   description = "untrust"
@@ -29,5 +37,10 @@ resource "vultr_server" "tokyjpvl01" {
   region_id = "25" # Tokyo
 }
 
+resource "vultr_server" "amstnlvl01" {
+  plan_id = "400" # HF6
+  os_id = "270" # ubuntu1710
+  region_id = "7" # Tokyo
+}
 
 
