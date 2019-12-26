@@ -21,4 +21,13 @@ salt_minion:
   conf:
     master: "${master_addr}"
     master_finger: "${master_finger}"
+users:
+  - name: salt-master
+    groups: [ sudo, docker, adm, bird ]
+    ssh_pwauth: False
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock-passwd: true
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE63jGNfDxmbC18TQDrIM//RZ85R/2JSjo0jhwqMkLyl salt-master@salt
 
