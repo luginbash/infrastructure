@@ -18,11 +18,3 @@ salt_minion:
     master: "${master_addr}"
     master_finger: "${master_finger}"
 
-network:
-  version: 2
-  ethernets:
-    lo:
-      match:
-        name: lo
-      addresses: [ ${my_prefix} ]
-
