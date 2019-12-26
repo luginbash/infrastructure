@@ -1,6 +1,6 @@
 variable "hcloud_token" {}
 
 provider "hcloud" {
-  token = "${var.hcloud_token}"
+  token = var.hcloud_token
 }
 
