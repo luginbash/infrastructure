@@ -1,6 +1,4 @@
 variable "VULTR_API_KEY" {}
-variable "SALT_MASTER" {}
-variable "SALT_FINGER" {}
 variable "SALT_USER" {}
 
 provider "vultr" {
