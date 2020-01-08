@@ -44,7 +44,7 @@ data "google_compute_zones" "available" {}
 
 data "google_compute_image" "ubuntu-1804-lts" {
   family = "ubuntu-1804-lts"
-  project = "ubuntu-os-cloud"
+  project = "gce-uefi-images"
 }
 
 resource "google_compute_instance" "controller" {
@@ -61,7 +61,7 @@ resource "google_compute_instance" "controller" {
   can_ip_forward = true
   network_interface {
     subnetwork = google_compute_subnetwork.kubernetes.self_link
-    private_ip = "10.240.0.1${count.index}"
+    network_ip = "10.240.0.1${count.index}"
   }
   service_account {
     scopes = [ "compute-rw", "storage-ro", "service-management", "service-control", "logging-write", "monitoring"  ]
