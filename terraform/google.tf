@@ -1,50 +1,94 @@
 variable "GOOGLE_CLOUD_PROJECT" {}
 variable "GOOGLE_CLOUD_REGION_DEFAULT" {}
 
-provider "google" {
+provider "google-beta" {
   project     = var.GOOGLE_CLOUD_PROJECT
   region      = var.GOOGLE_CLOUD_REGION_DEFAULT
 }
 
+resource "google_compute_network" "kubernetes-the-hard-way" {
+  name = "kubernetes-the-hard-way"
+  auto_create_subnetworks = false
+}
 
-resource "google_container_cluster" "primary" {
-  name     = "my-gke-cluster"
-  location = var.GOOGLE_CLOUD_REGION_DEFAULT
+resource "google_compute_subnetwork" "kubernetes" {
+  name = "kubernetes"
+  network = google_compute_network.kubernetes-the-hard-way.self_link
+  ip_cidr_range = "10.240.0.0/24"
+}
 
-  # We can't create a cluster with no node pool defined, but we want to only use
-  # separately managed node pools. So we create the smallest possible default
-  # node pool and immediately delete it.
-  remove_default_node_pool = true
-  initial_node_count       = 1
+resource "google_compute_firewall" "kubernetes-the-hard-way-allow-internal" {
+  name = "kubernetes-the-hard-way-allow-internal"
+  network = google_compute_network.kubernetes-the-hard-way.self_link
+  
+  allow { protocol = "icmp" }
+  allow { protocol = "tcp" }
+  allow { protocol = "udp" }
+}
 
-  master_auth {
-    username = ""
-    password = ""
-
-    client_certificate_config {
-      issue_client_certificate = false
-    }
+resource "google_compute_firewall" "kubernetes-the-hard-way-allow-external" {
+  name = "kubernetes-the-hard-way-allow-external"
+  network = google_compute_network.kubernetes-the-hard-way.self_link
+  allow { protocol = "icmp" }
+  allow { 
+    protocol = "tcp" 
+    ports = [ "22","6443" ]
   }
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "my-node-pool"
-  location   = var.GOOGLE_CLOUD_REGION_DEFAULT
-  cluster    = google_container_cluster.primary.name
-  node_count = 1
+resource "google_compute_address" "ip_address" {
+  name = "kubernetes-the-hard-way"
+}
 
-  node_config {
-    preemptible  = true
-    machine_type = "n1-standard-1"
+data "google_compute_zones" "available" {}
 
-    metadata = {
-      disable-legacy-endpoints = "true"
+data "google_compute_image" "ubuntu-1804-lts" {
+  family = "ubuntu-1804-lts"
+  project = "ubuntu-os-cloud"
+}
+
+resource "google_compute_instance" "controller" {
+  count = 3
+  name = "controller-${count.index}"
+  zone = data.google_compute_zones.available.names[1]
+  machine_type = "n1-standard-1"
+  boot_disk {
+    initialize_params {
+      size = 200
+      image = data.google_compute_image.ubuntu-1804-lts.self_link
     }
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
   }
+  can_ip_forward = true
+  network_interface {
+    subnetwork = google_compute_subnetwork.kubernetes.self_link
+    private_ip = "10.240.0.1${count.index}"
+  }
+  service_account {
+    scopes = [ "compute-rw", "storage-ro", "service-management", "service-control", "logging-write", "monitoring"  ]
+  }
+  tags = [ "kubernetes-the-hard-way", "controller"  ]
+}
+
+resource "google_compute_instance" "worker" {
+  count = 3
+  name = "worker-${count.index}"
+  zone = data.google_compute_zones.available.names[1]
+  machine_type = "n1-standard-1"
+  boot_disk {
+    initialize_params {
+      size = 200
+      image = google_compute_image.ubuntu-1804-lts.self_link
+    }
+  }
+  can_ip_forward = true
+  network_interface {  
+    subnetwork = google_compute_subnetwork.kubernetes.self_link
+    network_ip = "10.240.0.2${count.index}"
+  }
+  service_account {
+    scopes = [ "compute-rw", "storage-ro", "service-management", "service-control", "logging-write", "monitoring"  ]
+  }
+  metadata { pod-cidr = "10.200.${count.index}.0/24" }
+  tags = [ "kubernetes-the-hard-way", "worker"  ]
 }
 
