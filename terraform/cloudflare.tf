@@ -8,7 +8,6 @@ provider "cloudflare" {
   api_token  = var.cloudflare_api_token
 }
 
-resource "cloudflare_zone" "lug_sh" {
-  zone = var.bootstrap_zone
-  plan = "free"
+data "cloudflare_zones" "infra" {
+  name = var.bootstrap_zone
 }

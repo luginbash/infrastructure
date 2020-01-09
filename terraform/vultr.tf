@@ -25,14 +25,4 @@ resource "vultr_server" "amstnlvl01" {
   region_id = "7"   # Amsterdam
 }
 
-resource "vultr_server" "sngpsgvl01" {
-  label           = "sngpsgvl01"
-  hostname        = "sngpsgvl01.lug.sh"
-  enable_ipv6     = true
-  notify_activate = false
-  plan_id         = "201" # Normal 5
-  os_id           = "270" # Ubuntu 18.04
-  region_id       = "40"  # Singapore
-  user_data       = data.template_cloudinit_config.vm-config.rendered
-}
 
