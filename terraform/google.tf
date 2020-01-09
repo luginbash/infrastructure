@@ -51,7 +51,7 @@ resource "google_compute_instance" "controller" {
   count = 3
   name = "controller-${count.index}"
   zone = data.google_compute_zones.available.names[1]
-  machine_type = "n1-standard-1"
+  machine_type = "f1-micro"
   boot_disk {
     initialize_params {
       size = 200

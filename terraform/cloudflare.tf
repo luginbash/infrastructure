@@ -1,6 +1,6 @@
 variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
-variable "bootstrap_zone_id" {}
+variable "bootstrap_zone" {}
 
 provider "cloudflare" {
   version    = "~> 2.0"
@@ -9,6 +9,6 @@ provider "cloudflare" {
 }
 
 resource "cloudflare_zone" "lug_sh" {
-  zone = var.bootstrap_zone_id
+  zone = var.bootstrap_zone
   plan = "free"
 }
