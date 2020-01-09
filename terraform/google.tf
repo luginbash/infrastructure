@@ -43,8 +43,8 @@ resource "google_compute_address" "ip_address" {
 data "google_compute_zones" "available" {}
 
 data "google_compute_image" "ubuntu-1804-lts" {
-  family = "ubuntu-os-cloud"
-  project = "gce-uefi-images"
+  family = "ubuntu-minimal-1804-lts"
+  project = "ubuntu-os-cloud"
 }
 
 resource "google_compute_instance" "controller" {
