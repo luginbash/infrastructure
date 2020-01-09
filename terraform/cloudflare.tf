@@ -9,5 +9,9 @@ provider "cloudflare" {
 }
 
 data "cloudflare_zones" "infra" {
-  name = var.bootstrap_zone
+  filter {
+    name = var.bootstrap_zone
+    status = "active"
+    paused = false
+  }
 }
