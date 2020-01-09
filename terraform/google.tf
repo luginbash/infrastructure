@@ -1,7 +1,7 @@
 variable "GOOGLE_CLOUD_PROJECT" {}
 variable "GOOGLE_CLOUD_REGION_DEFAULT" {}
 
-provider "google-beta" {
+provider "google" {
   project     = var.GOOGLE_CLOUD_PROJECT
   region      = var.GOOGLE_CLOUD_REGION_DEFAULT
 }
@@ -43,7 +43,7 @@ resource "google_compute_address" "ip_address" {
 data "google_compute_zones" "available" {}
 
 data "google_compute_image" "ubuntu-1804-lts" {
-  family = "ubuntu-1804-lts"
+  family = "ubuntu-os-cloud"
   project = "gce-uefi-images"
 }
 
@@ -77,7 +77,7 @@ resource "google_compute_instance" "worker" {
   boot_disk {
     initialize_params {
       size = 200
-      image = google_compute_image.ubuntu-1804-lts.self_link
+      image = data.google_compute_image.ubuntu-1804-lts.self_link
     }
   }
   can_ip_forward = true
@@ -88,7 +88,7 @@ resource "google_compute_instance" "worker" {
   service_account {
     scopes = [ "compute-rw", "storage-ro", "service-management", "service-control", "logging-write", "monitoring"  ]
   }
-  metadata { pod-cidr = "10.200.${count.index}.0/24" }
+  metadata = { pod-cidr = "10.200.${count.index}.0/24" }
   tags = [ "kubernetes-the-hard-way", "worker"  ]
 }
 
