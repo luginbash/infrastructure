@@ -15,3 +15,10 @@ data "cloudflare_zones" "infra" {
     paused = false
   }
 }
+
+resource "cloudflare_zone" "zone" {
+  zone = var.bootstrap_zone
+  plan = "free"
+}
+
+
