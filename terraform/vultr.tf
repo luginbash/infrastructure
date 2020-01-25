@@ -30,8 +30,8 @@ resource "vultr_server" "tokyjpvl01" {
 
 resource "vultr_server" "amstnlvl01" {
   plan_id = "400" # HF6
-  os_id = "270" # ubuntu1710
-  region_id = "7" # Tokyo
+  os_id = "270" # ubuntu1804
+  region_id = "7" # Amsterdam
 }
 
 
