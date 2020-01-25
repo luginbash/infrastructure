@@ -30,4 +30,3 @@ resource "packet_device" "amstnlpks01" {
   project_id = local.project_id
 }
 
-
