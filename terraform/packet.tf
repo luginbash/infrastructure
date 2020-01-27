@@ -20,10 +20,10 @@ data "template_file" "init" {
   }
 }
 
-resource "packet_device" "amstnlpks01" {
-  hostname = "amstnlpks01.lug.sh"
+resource "packet_device" "tokyjppks01" {
+  hostname = "tokyjppk01.lug.sh"
   plan = "baremetal_0"
-  facilities = ["ams1"]
+  facilities = ["nrt1"]
   operating_system = "ubuntu_18_04"
   billing_cycle = "hourly"
   user_data = data.template_file.init.rendered
