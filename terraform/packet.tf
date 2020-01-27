@@ -12,13 +12,6 @@ locals {
   project_id = var.PACKET_PROJECT
 }
 
-data "template_file" "init" {
-  template = file("${path.module}/init.tpl")
-  vars = {
-    master_addr = var.SALT_MASTER
-    master_finger = var.SALT_FINGER
-  }
-}
 
 resource "packet_device" "tokyjppks01" {
   hostname = "tokyjppk01.lug.sh"
