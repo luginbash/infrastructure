@@ -48,7 +48,7 @@ data "google_compute_image" "ubuntu-1804-lts" {
 }
 
 resource "google_compute_instance" "controller" {
-  count = 3
+  count = 0
   name = "controller-${count.index}"
   zone = data.google_compute_zones.available.names[1]
   machine_type = "f1-micro"
@@ -70,7 +70,7 @@ resource "google_compute_instance" "controller" {
 }
 
 resource "google_compute_instance" "worker" {
-  count = 3
+  count = 0
   name = "worker-${count.index}"
   zone = data.google_compute_zones.available.names[1]
   machine_type = "n1-standard-1"
