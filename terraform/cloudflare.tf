@@ -1,6 +1,6 @@
 variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
-variable "cloudflare_zone_id" {}
+variable "cloudflare_zone" {}
 
 provider "cloudflare" {
   version    = "~> 2.0"
@@ -9,7 +9,7 @@ provider "cloudflare" {
 }
 
 resource "cloudflare_zone" "zone" {
-  id = var.cloudflare_zone_id
+  zone = var.cloudflare_zone
   plan = "free"
 }
 
