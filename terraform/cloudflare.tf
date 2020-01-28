@@ -1,6 +1,6 @@
 variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
-variable "bootstrap_zone" {}
+variable "cloudflare_zone_id" {}
 
 provider "cloudflare" {
   version    = "~> 2.0"
@@ -8,16 +8,8 @@ provider "cloudflare" {
   api_token  = var.cloudflare_api_token
 }
 
-data "cloudflare_zones" "infra" {
-  filter {
-    name = var.bootstrap_zone
-    status = "active"
-    paused = false
-  }
-}
-
 resource "cloudflare_zone" "zone" {
-  zone = var.bootstrap_zone
+  id = var.bootstrap_zone
   plan = "free"
 }
 
