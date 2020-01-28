@@ -9,7 +9,7 @@ provider "cloudflare" {
 }
 
 resource "cloudflare_zone" "zone" {
-  id = var.bootstrap_zone
+  id = var.cloudflare_zone_id
   plan = "free"
 }
 
