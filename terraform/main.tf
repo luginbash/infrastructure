@@ -4,7 +4,6 @@ variable "SSH_PUBKEY_2" {}
 variable "SSH_PUBKEY_3" {}
 variable "SSH_PUBKEY_4" {}
 variable "SSH_PUBKEY_5" {}
-variable "CF_zone_id" {}
 
 data "template_file" "init" {
   template = file("${path.module}/init.tpl")
