@@ -7,9 +7,6 @@ apt:
     saltstack.list:
       source: "deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/latest bionic main"
       keyid: 754A1A7AE731F165D5E6D4BD0E08A149DE57BFBE
-    bird2-ppa:
-      source: "deb http://ppa.launchpad.net/cz.nic-labs/bird/ubuntu bionic main"
-      keyid: 52463488670E69A092007C24F2331238F9C59A45
 package_update: true
 package_upgrade: true
 packages:
@@ -29,4 +26,9 @@ users:
     lock-passwd: true
     ssh-authorized-keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE63jGNfDxmbC18TQDrIM//RZ85R/2JSjo0jhwqMkLyl salt-master@salt
+      - ${SSH_PUBKEY_1}
+      - ${SSH_PUBKEY_2}
+      - ${SSH_PUBKEY_3}
+      - ${SSH_PUBKEY_4}
+      - ${SSH_PUBKEY_5}
 
