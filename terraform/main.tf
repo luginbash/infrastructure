@@ -1,9 +1,4 @@
 variable "SALT_USER" {}
-variable "SSH_PUBKEY_1" {}
-variable "SSH_PUBKEY_2" {}
-variable "SSH_PUBKEY_3" {}
-variable "SSH_PUBKEY_4" {}
-variable "SSH_PUBKEY_5" {}
 
 data "template_file" "init" {
   template = file("${path.module}/init.tpl")
@@ -19,7 +14,7 @@ data "template_cloudinit_config" "vm-config" {
   base64_encode = true
   part {
     content_type = "text/cloud-config"
-    content      = "${data.template_file.init.rendered}"
+    content      = data.template_file.init.rendered
   }
 }
 
