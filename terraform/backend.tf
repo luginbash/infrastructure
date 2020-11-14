@@ -1,8 +1,8 @@
 terraform {
   backend "remote" {
-  hostname = "app.terraform.io"
-  organization = "lug-sh"
-  workspaces { name = "infrastructure" } 
+    hostname = "app.terraform.io"
+    organization = "lug-sh"
+    workspaces { name = "infrastructure" } 
   }
   required_providers {
     hcloud = {
@@ -20,10 +20,6 @@ terraform {
     cloudflare = {
       source = "cloudflare/cloudflare"
       version = "~> 2.13"
-    }
-    heroku = {
-      source = "heroku/heroku"
-      version = "~> 3.0"
     }
   }
 }
