@@ -7,7 +7,11 @@ variable "hcloud_k3s_fqdn" {}
 variable "hcloud_master_server_type" {}
 variable "hcloud_network" { type = map(string) }
 variable "hcloud_node_server_type" {}
-variable "hcloud_presence" { type = list(map(string)) }
+variable "hcloud_presence" { type = list(map(object({
+  code = string
+  region = string
+  count = number
+}))) }
 variable "ssh_pubkeys" { type = list(string)  }
 
 provider "random" {
@@ -56,12 +60,12 @@ resource "hcloud_network_subnet" "subnet" {
 
 resource "hcloud_server" "hosts" {
   for_each    = random_pet.servers
-  location    = each.value["location"]
+  location    = each.value.code
   name        = each.key
   image       = "debian-10"
   iso         = "k3os-amd64_v0.11.0.iso"
-  server_type = each.value["idx"] == 0 ? var.hcloud_master_server_type : var.hcloud_node_server_type
-  user_data   = each.value["idx"] == 0 ? templatefile(
+  server_type = each.value.idx== 0 ? var.hcloud_master_server_type : var.hcloud_node_server_type
+  user_data   = each.value.idx == 0 ? templatefile(
     "${path.module}/init-hcloud-k3os-srv.tpl", {
     ssh_pubkeys = var.ssh_pubkeys,
     server_url = "https://${hcloud_server.hosts[0].ipv4_address}:6443",
