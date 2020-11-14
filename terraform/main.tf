@@ -1,6 +1,9 @@
 variable "SALT_USER" {}
 variable "SALT_MASTER" {}
 variable "SALT_FINGER" {}
+
+provider "google" {}
+
 data "template_file" "init" {
   template = file("${path.module}/init.tpl")
 
