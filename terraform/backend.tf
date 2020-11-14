@@ -7,18 +7,23 @@ terraform {
   required_providers {
     hcloud = {
       source = "hetznercloud/hcloud"
+      version = "~> 1.23"
     }
     packet = {
       source = "packethost/packet"
+      version = "~> 3.0"
     }
     vultr = {
       source = "vultr/vultr"
+      version = "~> 1.5"
     }
     cloudflare = {
       source = "cloudflare/cloudflare"
+      version = "~> 2.13"
     }
     heroku = {
       source = "heroku/heroku"
+      version = "~> 3.0"
     }
   }
 }
