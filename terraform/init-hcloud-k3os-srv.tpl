@@ -5,6 +5,10 @@ ssh_authorized_keys:
 
 hostname:
 k3os:
+  fallback_mode: install
+  install:
+    silent: true
+    device: /dev/sda
   data_sources:
   - hetzner
   sysctl:
