@@ -5,6 +5,7 @@ terraform {
     workspaces { name = "infrastructure" } 
   }
   required_providers {
+    google {}
     hcloud = {
       source = "hetznercloud/hcloud"
       version = "~> 1.23"
