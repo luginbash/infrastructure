@@ -7,11 +7,6 @@ variable "hcloud_k3s_fqdn" {}
 variable "hcloud_master_server_type" {}
 variable "hcloud_network" { type = map(string) }
 variable "hcloud_node_server_type" {}
-variable "hcloud_presence" { type = list(map(object({
-  code = string
-  region = string
-  count = number
-}))) }
 variable "ssh_pubkeys" { type = list(string)  }
 
 provider "random" {
@@ -24,10 +19,6 @@ provider "hcloud" {
 
 # locals
 
-locals {
-  hosts_numbered = sort(flatten([for region in var.hcloud_presence : [for elem in range(region["count"]) : "${region["code"]}-s${elem}"]]))
-}
-
 # resources
 resource "random_string" "k3s_token" {
   length = 64
@@ -35,8 +26,8 @@ resource "random_string" "k3s_token" {
 }
 
 resource "random_pet" "servers" {
-  for_each = toset(local.hosts_numbered)
   length   = 2
+  count = 3
   keepers = {
     k3os_ver = var.default_k3os_ver
   }
