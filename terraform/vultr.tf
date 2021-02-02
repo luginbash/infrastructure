@@ -13,8 +13,6 @@ resource "vultr_firewall_group" "default" {
   description = "default"
 }
 
-
-
 resource "vultr_server" "tokyjpvl01" {
   plan_id   = "401" # HF12
   os_id     = "252" # ubuntu1710
