@@ -1,0 +1,36 @@
+variable "VULTR_API_KEY" {}
+variable "ssh_pubkeys" { type = list(string)  }
+
+
+provider "vultr" {
+  api_key    = var.VULTR_API_KEY
+  rate_limit = 700
+}
+
+resource "vultr_firewall_group" "untrust" {
+  description = "untrust"
+}
+
+
+{%- for site in sites %}
+resource "vultr_firewall_group" "{{ site }}-inside" {
+  description = "{{ site }}-inside"
+}
+{% endfor %}
+
+{%- for site in sites %}
+resource "vultr_server" "{{ site }}01" {
+  region = "{{ site }}"
+  plan = "vhf-1c-1gb"
+  label = "{{site}}01"
+  hostname = "{{ site }}01.lug.sh"
+  os_id = "352"
+  enable_ipv6 = true
+  activation_email = false
+  user_data = templatefile("${path.module}/init.yml",{
+    master_user = var.master_user
+    master_finger = var.master_finger
+    master_addr = var.master_addr
+  })
+}
+{% endfor %}

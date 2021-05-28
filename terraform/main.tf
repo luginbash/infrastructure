@@ -3,7 +3,7 @@ variable "SALT_MASTER" {}
 variable "SALT_FINGER" {}
 
 data "template_file" "init" {
-  template = file("${path.module}/init.tpl")
+  template = file("${path.module}/init.yml")
 
   vars = {
     master_finger = var.SALT_FINGER
