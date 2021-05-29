@@ -20,5 +20,9 @@ resource "vultr_instance" "{{ site }}01" {
   enable_ipv6 = true
   activation_email = false
   user_data = data.template_cloudinit_config.vm-config.rendered
+
+  lifecycle {
+    ignore_changes = [ "os_id"  ]
+  }
 }
 {% endfor %}
