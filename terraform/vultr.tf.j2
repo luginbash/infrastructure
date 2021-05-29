@@ -4,8 +4,8 @@ resource "vultr_firewall_group" "untrust" {
 
 
 {%- for site in sites %}
-resource "vultr_private_network" "{{ site }}-inside" {
-  description = "{{ site }}-inside"
+resource "vultr_private_network" "{{ site }}_inside" {
+  description = "{{ site }}_inside"
   region = "{{ site  }}"
 }
 {% endfor %}
@@ -19,8 +19,7 @@ resource "vultr_instance" "{{ site }}01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  features = [ "ipv6" ]
-  private_network_ids = data.vultr_private_network.{{ site }}-inside
+  private_network_ids = vultr_private_network.{{ site }}_inside.id
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
