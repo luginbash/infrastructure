@@ -32,7 +32,7 @@ resource "vultr_instance" "sjc01" {
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
-    ignore_changes = [ "os_id"  ]
+    ignore_changes = [ os_id  ]
   }
 }
 
@@ -47,7 +47,7 @@ resource "vultr_instance" "sgp01" {
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
-    ignore_changes = [ "os_id"  ]
+    ignore_changes = [ os_id  ]
   }
 }
 
@@ -62,7 +62,7 @@ resource "vultr_instance" "nrt01" {
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
-    ignore_changes = [ "os_id"  ]
+    ignore_changes = [ os_id  ]
   }
 }
 
@@ -77,7 +77,7 @@ resource "vultr_instance" "ams01" {
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
-    ignore_changes = [ "os_id"  ]
+    ignore_changes = [ os_id  ]
   }
 }
 

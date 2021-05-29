@@ -22,7 +22,7 @@ resource "vultr_instance" "{{ site }}01" {
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
-    ignore_changes = [ "os_id"  ]
+    ignore_changes = [ os_id  ]
   }
 }
 {% endfor %}
