@@ -16,6 +16,7 @@ resource "vultr_private_network" "nrt_inside" {
 }
 resource "vultr_instance" "master_nrt01" {
   region = "nrt"
+  backups = "enabled"
   plan = "vhf-1c-2gb"
   label = "master_nrt01"
   os_id = "352"
