@@ -29,7 +29,7 @@ resource "vultr_instance" "sjc01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  private_network_ids = vultr_private_network.sjc_inside.id
+  private_network_ids = [ vultr_private_network.sjc_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
@@ -45,7 +45,7 @@ resource "vultr_instance" "sgp01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  private_network_ids = vultr_private_network.sgp_inside.id
+  private_network_ids = [ vultr_private_network.sgp_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
@@ -61,7 +61,7 @@ resource "vultr_instance" "nrt01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  private_network_ids = vultr_private_network.nrt_inside.id
+  private_network_ids = [ vultr_private_network.nrt_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
@@ -77,7 +77,7 @@ resource "vultr_instance" "ams01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  private_network_ids = vultr_private_network.ams_inside.id
+  private_network_ids = [ vultr_private_network.ams_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {

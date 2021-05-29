@@ -19,7 +19,7 @@ resource "vultr_instance" "{{ site }}01" {
   os_id = "352"
   enable_ipv6 = true
   activation_email = false
-  private_network_ids = vultr_private_network.{{ site }}_inside.id
+  private_network_ids = [ vultr_private_network.{{ site }}_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {
