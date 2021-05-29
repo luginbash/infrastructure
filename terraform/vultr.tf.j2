@@ -25,6 +25,12 @@ resource "vultr_instance" "master_nrt01" {
   lifecycle {
     ignore_changes = [ os_id, user_data  ]
   }
+  backups_schedule {
+   dom  = 0 
+   dow  = 0 
+   hour = 18
+   type = "daily_alt_even"
+  }
 }
 
 {%- for site in sites %}
