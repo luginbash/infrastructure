@@ -1,19 +1,19 @@
 resource "vultr_firewall_group" "untrust" {
   description = "untrust"
 }
-resource "vultr_firewall_group" "sjc-inside" {
+resource "vultr_private_network" "sjc-inside" {
   description = "sjc-inside"
 }
 
-resource "vultr_firewall_group" "sgp-inside" {
+resource "vultr_private_network" "sgp-inside" {
   description = "sgp-inside"
 }
 
-resource "vultr_firewall_group" "nrt-inside" {
+resource "vultr_private_network" "nrt-inside" {
   description = "nrt-inside"
 }
 
-resource "vultr_firewall_group" "ams-inside" {
+resource "vultr_private_network" "ams-inside" {
   description = "ams-inside"
 }
 

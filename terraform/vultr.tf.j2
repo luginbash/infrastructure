@@ -4,7 +4,7 @@ resource "vultr_firewall_group" "untrust" {
 
 
 {%- for site in sites %}
-resource "vultr_firewall_group" "{{ site }}-inside" {
+resource "vultr_private_network" "{{ site }}-inside" {
   description = "{{ site }}-inside"
 }
 {% endfor %}
