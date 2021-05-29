@@ -43,7 +43,7 @@ resource "vultr_instance" "{{ site }}01" {
   enable_ipv6 = true
   activation_email = false
   private_network_ids = [ vultr_private_network.{{ site }}_inside.id ]
-  user_data = data.template_cloudinit_config.vm-config.rendered
+  user_data = data.template_file.init.rendered
 
   lifecycle {
     ignore_changes = [ os_id, user_data  ]
