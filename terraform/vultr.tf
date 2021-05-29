@@ -11,16 +11,27 @@ resource "vultr_private_network" "sgp_inside" {
   region = "sgp"
 }
 
-resource "vultr_private_network" "nrt_inside" {
-  description = "nrt_inside"
-  region = "nrt"
-}
-
 resource "vultr_private_network" "ams_inside" {
   description = "ams_inside"
   region = "ams"
 }
 
+
+resource "vultr_private_network" "nrt_inside" {
+  description = "nrt_inside"
+  region = "nrt"
+}
+resource "vultr_instance" "master_nrt01" {
+  region = "nrt"
+  plan = "vhf-1c-2gb"
+  label = "master_nrt01"
+  os_id = "352"
+  private_network_ids = [ vultr_private_network.nrt_inside.id ]
+  enable_ipv6 = true
+  lifecycle {
+    ignore_changes = [ os_id, user_data  ]
+  }
+}
 resource "vultr_instance" "sjc01" {
   region = "sjc"
   plan = "vhf-1c-1gb"
@@ -46,22 +57,6 @@ resource "vultr_instance" "sgp01" {
   enable_ipv6 = true
   activation_email = false
   private_network_ids = [ vultr_private_network.sgp_inside.id ]
-  user_data = data.template_cloudinit_config.vm-config.rendered
-
-  lifecycle {
-    ignore_changes = [ os_id, user_data  ]
-  }
-}
-
-resource "vultr_instance" "nrt01" {
-  region = "nrt"
-  plan = "vhf-1c-1gb"
-  label = "nrt01"
-  hostname = "edge-nrt01.lug.sh"
-  os_id = "352"
-  enable_ipv6 = true
-  activation_email = false
-  private_network_ids = [ vultr_private_network.nrt_inside.id ]
   user_data = data.template_cloudinit_config.vm-config.rendered
 
   lifecycle {

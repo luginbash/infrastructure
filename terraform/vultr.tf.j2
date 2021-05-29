@@ -10,6 +10,22 @@ resource "vultr_private_network" "{{ site }}_inside" {
 }
 {% endfor %}
 
+resource "vultr_private_network" "nrt_inside" {
+  description = "nrt_inside"
+  region = "nrt"
+}
+resource "vultr_instance" "master_nrt01" {
+  region = "nrt"
+  plan = "vhf-1c-2gb"
+  label = "master_nrt01"
+  os_id = "352"
+  private_network_ids = [ vultr_private_network.nrt_inside.id ]
+  enable_ipv6 = true
+  lifecycle {
+    ignore_changes = [ os_id, user_data  ]
+  }
+}
+
 {%- for site in sites %}
 resource "vultr_instance" "{{ site }}01" {
   region = "{{ site }}"
