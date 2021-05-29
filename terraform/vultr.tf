@@ -3,19 +3,19 @@ resource "vultr_firewall_group" "untrust" {
 }
 resource "vultr_private_network" "sjc-inside" {
   description = "sjc-inside"
-}
+  region = sjc
 
 resource "vultr_private_network" "sgp-inside" {
   description = "sgp-inside"
-}
+  region = sgp
 
 resource "vultr_private_network" "nrt-inside" {
   description = "nrt-inside"
-}
+  region = nrt
 
 resource "vultr_private_network" "ams-inside" {
   description = "ams-inside"
-}
+  region = ams
 
 resource "vultr_instance" "sjc01" {
   region = "sjc"
