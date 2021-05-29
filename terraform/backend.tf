@@ -9,10 +9,6 @@ terraform {
       source = "vultr/vultr"
       version = "2.3.0"
     }
-    cloudflare = {
-      source = "cloudflare/cloudflare"
-      version = "~> 2.13"
-    }
   }
 }
 
